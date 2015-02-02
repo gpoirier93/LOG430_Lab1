@@ -1,4 +1,4 @@
-package Données;
+package Donnees;
 /**
  * This class defines the Resource object for the system. Besides the basic
  * attributes, there are two lists maintained. alreadyAssignedProjectList is a

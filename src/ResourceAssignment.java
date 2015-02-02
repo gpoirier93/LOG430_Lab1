@@ -1,7 +1,10 @@
-import Données.Project;
-import Données.Resource;
+import Donnees.Project;
+import Donnees.Resource;
+import Donnees.ResourceList;
+import Donnees.ProjectList;
 import Présentation.Displays;
 import Présentation.Menus;
+import Gestion.ProjectInitializer;
 import Gestion.ProjectReader;
 import Gestion.ResourceReader;
 
@@ -91,10 +94,12 @@ public class ResourceAssignment {
 			 * the second argument (argv[1]). An example resources file and projects
 			 * file is provided as resources.txt and projects.txt
 			 */
+			
+			ProjectInitializer projectInit = new ProjectInitializer(argv[0], argv[1]);
 
-			ProjectReader projectList = new ProjectReader(argv[0]);
-			ResourceReader resourceList = new ResourceReader(argv[1]);
-
+			ProjectReader projectList = projectInit.projectReader;
+			ResourceReader resourceList = projectInit.resourceReader;
+			
 			if ((projectList.getListOfProjects() == null)
 					|| (resourceList.getListOfResources() == null)) {
 				System.out
@@ -125,7 +130,7 @@ public class ResourceAssignment {
 					display.displayResourceList(resourceList.getListOfResources());
 					resource = menu.pickResource(resourceList.getListOfResources());
 					if (resource != null) {
-						display.displayProjectsAssignedToResource(resource);
+						display.displayProjectsAssignedToResource(resource, false);
 					} // if
 					break;
 
@@ -154,7 +159,14 @@ public class ResourceAssignment {
 					} // if
 
 					break;
-
+					
+				case '6': 
+					display.displayResourceList(resourceList.getListOfResources());
+					resource = menu.pickResource(resourceList.getListOfResources());
+					if (resource != null) {
+						display.displayProjectsAssignedToResource(resource, true);
+					} // if
+					break;
 				case 'X':
 
 				case 'x':

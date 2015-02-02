@@ -1,7 +1,7 @@
 package Gestion;
-import Données.Resource;
-import Données.ResourceList;
-import Données.Project;
+import Donnees.Project;
+import Donnees.Resource;
+import Donnees.ResourceList;
 /**
  * Reads from the InputFile and instantiates the Resource objects in the system.
  * It is assumed that the InputFile is in the local directory, contains the
@@ -211,5 +211,7 @@ public class ResourceReader extends LineOfTextFileReader {
 		return (resource);
 
 	} // parseText
+	
+	
 
 } // ResourceReader

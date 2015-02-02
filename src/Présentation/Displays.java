@@ -1,5 +1,10 @@
 package Présentation;
 
+import Donnees.Project;
+import Donnees.Resource;
+import Donnees.ProjectList;
+import Donnees.ResourceList;
+
 /**
  * This class displays various types of information on projects and resources
  * (individually and as lists) to the screen.
@@ -131,7 +136,7 @@ public class Displays {
 	 * 
 	 * @param resource
 	 */
-	public void displayProjectsAssignedToResource(Resource resource) {
+	public void displayProjectsAssignedToResource(Resource resource, boolean isDisplayBeforeExecution) {
 
 		boolean done;
 		Project project;
@@ -144,12 +149,16 @@ public class Displays {
 				.println("========================================================= ");
 		lineCheck(1);
 
-		resource.getProjectsAssigned().goToFrontOfList();
+		if(isDisplayBeforeExecution){
+			resource.getPreviouslyAssignedProjectList().goToFrontOfList();
+		}else{
+			resource.getProjectsAssigned().goToFrontOfList();
+		}
 		done = false;
 
 		while (!done) {
 
-			project = resource.getProjectsAssigned().getNextProject();
+			project = isDisplayBeforeExecution ? resource.getPreviouslyAssignedProjectList().getNextProject() : resource.getProjectsAssigned().getNextProject();
 
 			if (project == null) {
 

@@ -1,4 +1,4 @@
-package Données;
+package Donnees;
 
 import java.util.Vector;
 
@@ -96,7 +96,7 @@ public class List {
 	/**
 	 * Sets vectorIndex back to zero, thereby pointing at the front of the list.
 	 */
-	void goToFrontOfList() {
+	public void goToFrontOfList() {
 
 		vectorIndex = 0;
 

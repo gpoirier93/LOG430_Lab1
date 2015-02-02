@@ -1,4 +1,4 @@
-package Données;
+package Donnees;
 /**
  * This class is used by various other classes that need to keep a list of
  * resources on hand. It extends the List class which provides the basic
