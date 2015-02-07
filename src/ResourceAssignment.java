@@ -62,7 +62,7 @@ import Gestion.ResourceReader;
  */
 
 public class ResourceAssignment {
-
+	
 	public static void main(String argv[]) {
 
 		if (argv.length != 2) {
@@ -152,10 +152,13 @@ public class ResourceAssignment {
 					if (resource != null) {
 						display.displayProjectList(projectList.getListOfProjects());
 						project = menu.pickProject(projectList.getListOfProjects());
-						if (project != null) {
+						if (project != null && resource.canAssignProject(project)) {
 							project.assignResource(resource);
 							resource.assignProject(project);
-						} // if
+						} else if ( project != null && !resource.canAssignProject(project)){
+						
+							display.displayOverloadResourceMessage(resource);
+						}
 					} // if
 
 					break;

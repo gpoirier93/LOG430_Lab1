@@ -1,4 +1,9 @@
 package Donnees;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * This class defines the Resource object for the system. Besides the basic
  * attributes, there are two lists maintained. alreadyAssignedProjectList is a
@@ -70,6 +75,94 @@ public class Resource {
 
 		getProjectsAssigned().addProject(project);
 
+	}
+	
+	public boolean canAssignProject(Project newProject){
+		
+		try{
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date newProjectStartDate = formatter.parse(newProject.getStartDate());
+			Date newProjectEndDate = formatter.parse(newProject.getEndDate());
+			Date startDate;
+			Date endDate;
+			
+			int newProjectWorkCharge = 0;
+			
+			if(newProject.getPriority().equalsIgnoreCase("L")){
+				newProjectWorkCharge += 25;
+			}else if(newProject.getPriority().equalsIgnoreCase("M")){
+				newProjectWorkCharge += 50;
+			}else if(newProject.getPriority().equalsIgnoreCase("H")){
+				newProjectWorkCharge += 100;
+			}
+			
+			boolean isListDone = false;
+			int currentWorkCharge = 0;
+			Project project;
+			projectsAssignedList.goToFrontOfList();
+			alreadyAssignedProjectList.goToFrontOfList();
+			
+			
+			while(!isListDone){
+				
+				project = projectsAssignedList.getNextProject();
+				
+				if(project == null) {
+					isListDone = true;
+				}else {
+				
+					startDate = formatter.parse(project.getStartDate());
+					endDate = formatter.parse(project.getEndDate());
+					
+					if(!(startDate.compareTo(newProjectStartDate) <= 0 && endDate.compareTo(newProjectEndDate) <= 0) 
+							&& !(startDate.compareTo(newProjectEndDate) >= 0 && endDate.compareTo(newProjectStartDate) >= 0))
+					{
+					
+						if(project.getPriority().equalsIgnoreCase("L")){
+							currentWorkCharge += 25;
+						}else if(project.getPriority().equalsIgnoreCase("M")){
+							currentWorkCharge += 50;
+						}else if(project.getPriority().equalsIgnoreCase("H")){
+							currentWorkCharge += 100;
+						}
+					}
+				}
+			}
+			
+			isListDone = false;
+			
+			while(!isListDone){
+				
+				project = alreadyAssignedProjectList.getNextProject();
+				
+				
+				if(project == null) {
+					isListDone = true;
+				}else{
+					
+					startDate = formatter.parse(project.getStartDate());
+					endDate = formatter.parse(project.getEndDate());
+				
+					if(!(startDate.before(newProjectStartDate) && endDate.before(newProjectStartDate)) || !(endDate.equals(newProjectStartDate)))
+					{
+						if(!(startDate.after(newProjectEndDate) && endDate.after(newProjectEndDate)) || !(startDate.equals(newProjectEndDate))){
+							if(project.getPriority().equalsIgnoreCase("L")){
+								currentWorkCharge += 25;
+							}else if(project.getPriority().equalsIgnoreCase("M")){
+								currentWorkCharge += 50;
+							}else if(project.getPriority().equalsIgnoreCase("H")){
+								currentWorkCharge += 100;
+							}
+						}
+					}
+				}
+			}
+			
+			return currentWorkCharge + newProjectWorkCharge <= 100;
+		
+		}catch(Exception e){
+			return false;
+		}
 	}
 
 	public void setLastName(String lastName) {

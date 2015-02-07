@@ -91,6 +91,43 @@ public class Displays {
 				+ project.getEndDate() + " "
 				+ project.getPriority());
 	}
+	
+	public void displayOverloadResourceMessage(Resource resource){
+		System.out.println("\nERROR\nYou can't add this project to this resource.\nThe resource work charge would be overloaded for the new project period of time.\nOperation denied!");
+
+		displayProjectAssignedToResource(resource);
+	}
+	
+	public void displayProjectAssignedToResource(Resource resource) {
+		
+		System.out.println("\nResource already assigned to: ");
+		System.out.println("===========================================================");
+		
+		resource.getPreviouslyAssignedProjectList().goToFrontOfList();
+		resource.getProjectsAssigned().goToFrontOfList();
+		Project project;
+		boolean done = false;
+		while(!done) {
+			project = resource.getPreviouslyAssignedProjectList().getNextProject();
+			if(project == null) done = true;
+			else {
+				displayProject(project);
+			}
+		}
+		
+		done = false;
+		
+		while(!done) {
+			project = resource.getProjectsAssigned().getNextProject();
+			if(project == null) done = true;
+			else {
+				displayProject(project);
+			}
+		}
+		
+		System.out.println("===========================================================");
+
+	}
 
 	/**
 	 * Lists the resources that have been assigned to the project.
@@ -141,9 +178,17 @@ public class Displays {
 		boolean done;
 		Project project;
 
-		System.out.println("\nProjects assigned (in this session) to : "
-				+ resource.getFirstName() + " " + resource.getLastName() + " "
-				+ resource.getID());
+		if(isDisplayBeforeExecution){
+			System.out.println("\nProjects assigned (before this session) to : "
+					+ resource.getFirstName() + " " + resource.getLastName() + " "
+					+ resource.getID());
+			
+		}
+		else{
+			System.out.println("\nProjects assigned (in this session) to : "
+					+ resource.getFirstName() + " " + resource.getLastName() + " "
+					+ resource.getID());
+		}
 		lineCheck(2);
 		System.out
 				.println("========================================================= ");
