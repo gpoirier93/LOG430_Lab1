@@ -1,3 +1,4 @@
+package Présentation;
 import Donnees.Project;
 import Donnees.Resource;
 import Donnees.ResourceList;
@@ -140,7 +141,7 @@ public class ResourceAssignment {
 					project = menu.pickProject(projectList.getListOfProjects());
 
 					if (project != null) {
-						display.displayResourcesAssignedToProject(project);
+						display.displayResourcesAssignedToProject(project, false);
 					} // if
 					break;
 
@@ -170,6 +171,15 @@ public class ResourceAssignment {
 						display.displayProjectsAssignedToResource(resource, true);
 					} // if
 					break;
+				case '7':
+					display.displayProjectList(projectList.getListOfProjects());
+					project = menu.pickProject(projectList.getListOfProjects());
+
+					if (project != null) {
+						display.displayResourcesAssignedToProject(project, true);
+					} // if
+					break;
+
 				case 'X':
 
 				case 'x':

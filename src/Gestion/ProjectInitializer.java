@@ -47,7 +47,7 @@ public class ProjectInitializer {
 							resourceProject.setEndDate(project.getEndDate());
 							resourceProject.setPriority(project.getPriority());
 							resourceProject.setProjectName(project.getProjectName());
-							project.assignResource(resource);
+							project.assignResourceInAlreadyAssignedRessource(resource);
 						}
 					}
 				}

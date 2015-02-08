@@ -53,6 +53,7 @@ public class Menus {
 			System.out.println("4) List resources currently assigned to a project");
 			System.out.println("5) Assign a resource to a project");
 			System.out.println("6) List of projects assigned to a resource before execution");
+			System.out.println("7) List of all resources asigned to a project");
 			System.out.println("X) Exit");
 			System.out.print("\n\nEnter your choice and press return >> ");
 
@@ -62,7 +63,8 @@ public class Menus {
 					&& (userChoice < '1') && (userChoice != '2')
 					&& (userChoice != '3') && (userChoice < '4')
 					&& (userChoice != '5')
-					&& (userChoice != '6')) {
+					&& (userChoice != '6')
+					&& (userChoice != '7')) {
 
 				System.out.print("\n\n*** Invalid Choice:: " + userChoice
 						+ " ***");

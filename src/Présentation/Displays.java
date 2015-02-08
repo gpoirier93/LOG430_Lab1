@@ -134,7 +134,7 @@ public class Displays {
 	 * 
 	 * @param project
 	 */
-	public void displayResourcesAssignedToProject(Project project) {
+	public void displayResourcesAssignedToProject(Project project, boolean isAllResource) {
 
 		boolean done;
 		Resource resource;
@@ -147,17 +147,23 @@ public class Displays {
 				.println("===========================================================");
 		lineCheck(1);
 
-		project.getResourcesAssigned().goToFrontOfList();
 		done = false;
+		
+		ResourceList resourceList = project.getResourcesAssigned();
+		resourceList.goToFrontOfList();
 
 		while (!done) {
 
-			resource = project.getResourcesAssigned().getNextResource();
-
+			
+			resource = resourceList.getNextResource();
+			
 			if (resource == null) {
-
-				done = true;
-
+				if(isAllResource){
+					resourceList = project.getResourcesAlreadyAssigned();
+					isAllResource = false;
+				}else{
+					done = true;
+				}
 			} else {
 
 				displayResource(resource);

@@ -58,6 +58,8 @@ public class Project {
 	/**
 	 * List of resources assigned to the project
 	 */
+	private ResourceList resourcesAlreadyAssigned = new ResourceList();
+	
 	private ResourceList resourcesAssigned = new ResourceList();
 
 	public Project() {
@@ -75,6 +77,10 @@ public class Project {
 	 */
 	public void assignResource(Resource resource) {
 		resourcesAssigned.addResource(resource);
+	}
+	
+	public void assignResourceInAlreadyAssignedRessource(Resource resource){
+		resourcesAlreadyAssigned.addResource(resource);
 	}
 
 	public void setID(String projectID) {
@@ -124,5 +130,14 @@ public class Project {
 	public ResourceList getResourcesAssigned() {
 		return resourcesAssigned;
 	}
+	
+	public void setAResourcesAlreadyAssigned(ResourceList resourcesAssigned) {
+		this.resourcesAlreadyAssigned = resourcesAssigned;
+	}
+
+	public ResourceList getResourcesAlreadyAssigned() {
+		return resourcesAlreadyAssigned;
+	}
+		
 
 } // Project class
